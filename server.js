@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+require('dotenv').config()
 const mongoose = require('mongoose')
 
 //Global middleware for every request
@@ -15,5 +16,8 @@ mongoose.connect(
 })
 
 app.use('/blogs', require('./routes/blogRoutes.js'))
+
+//to use auth routes
+app.use('/auth', require('./routes/auth.js'))
 
 app.listen(6067, () => console.log('Server is running'))
