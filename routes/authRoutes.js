@@ -1,9 +1,20 @@
 const express = require('express')
-const blogRouter = express.Router()
+const adminRouter = express.Router()
+const Blog = require('../models/blogSchema.js')
 
+adminRouter.post('/', (req, res) => {
+    const newBlog = new Blog(req.body)
+    newBlog.save((err, savedBlog) => {
+        if(err){
+            res.status(500)
+            return res.send(err)
+        }
+        return res.status(201).send(savedBlog)
+    })
+})
 
 //Get for all items in DB
-blogRouter.get('/', (req, res) => {
+adminRouter.get('/', (req, res) => {
     Blog.find((err, allBlogs) => {
         if(err){
             res.status(500)
@@ -14,7 +25,7 @@ blogRouter.get('/', (req, res) => {
 })
 
 //Get by ID
-blogRouter.get('/:_id', (req,res) => {
+adminRouter.get('/:_id', (req,res) => {
     Blog.findOne({_id: req.params._id}, (err, foundBlog) => {
         if(err){
             res.status(500)
@@ -24,4 +35,5 @@ blogRouter.get('/:_id', (req,res) => {
     })
 })
 
-module.exports = blogRouter
+
+module.exports = authRouter
