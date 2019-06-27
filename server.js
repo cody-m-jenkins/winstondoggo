@@ -10,7 +10,7 @@ app.use(express.json()) //creates req.body
 app.use('/admin', expressJwt({secret: process.env.SECRET}))
 
 mongoose.connect(
-    'mongodb://localhost:27017/blog', {
+    'mongodb://localhost:27017/doggoadventures', {
         useNewUrlParser: true,
         useFindAndModify: false,
         useCreateIndex: true
@@ -19,12 +19,13 @@ mongoose.connect(
 })
 
 //allows users to view blog even though they aren't logged in
-app.use('/blogs', require('./routes/blogRoutes.js'))
+app.use('/', require('./routes/blogRoutes.js'))
 
-//this is to make it so that we need to be admin to be able to put and delete things
+//this is to make it so the admin is able to post, put, and delete things
 app.use('/admin', require('./routes/adminRoutes.js'))
+//makes it so you need to have a token -- THIS BREAKS THE SERVER
+// app.use('/admin', express.Jwt({secret: process.env.SECRET}))
 
-//to use auth routes which will allow post
 app.use('/auth', require('./routes/auth.js'))
 
-app.listen(6067, () => console.log('Server is running'))
+app.listen(6069, () => console.log('Server is running'))

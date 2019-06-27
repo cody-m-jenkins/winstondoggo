@@ -4,6 +4,7 @@ const authRouter = express.Router()
 const jwt = require('jsonwebtoken')
 
 //post a new user to user collection (signing up)
+//you'll have to do this in Postman for now 'http://localhost:6069/auth/signup"
 authRouter.post('/signup', (req, res, next) => {
     //Try to find a user with that name -- if it exists tell them to try a new one
     User.findOne({username: req.body.username}, (err, existinguser) => {
@@ -37,7 +38,7 @@ authRouter.post('/login', (req, res, next) => {
             return next (err)
         }
         //If they aren't in the database OR the password is wrong:
-        if (!uswer || user.password !== req.body.password) {
+        if (!user || user.password !== req.body.password) {
             req.status(403)
             return next(new Error('The login ID or password are incorrect (or both, I dunno.)'))
         }
