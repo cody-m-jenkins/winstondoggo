@@ -8,7 +8,8 @@ const blogSchema = new Schema({
     },
     description: {
         type: String,
-        required: true
+        required: false,
+        default: 'No description provided'
     },
     body: {
         type: String,

@@ -1,5 +1,6 @@
 const express = require('express')
 const blogRouter = express.Router()
+const Blog = require('../models/blogSchema.js')
 
 
 //Get for all items in DB
