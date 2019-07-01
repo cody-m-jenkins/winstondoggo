@@ -47,7 +47,7 @@ authRouter.post('/login', (req, res, next) => {
         const token = jwt.sign(user.toObject(), process.env.SECRET)
 
         //send the token back to the client app
-        return res.send({token: token, user: user.toObject(), success: true})
+        return res.send({ user: user.toObject(), token })
     })
 })
 
